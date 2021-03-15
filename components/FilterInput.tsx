@@ -4,7 +4,7 @@
  * Copyright (c) 2021 PredictiveUX
  */
 import styled from 'styled-components'
-
+import React from 'react';
 import css from 'styles/Home.module.css'
 
 /** styled components here */
@@ -22,15 +22,15 @@ const Instructions = styled.div`
 /**
  * We presume you'll need some kind of change handler to listen to inputs
  */
-// type FilterInputProps = {
-//   changeHandler: (evt: Event) => void
-// }
+type FilterInputProps = {
+  changeHandler: (filterChar:string) => void
+}
 
-const FilterInput = (): JSX.Element => {
+const FilterInput: React.FC<FilterInputProps> =  ( {changeHandler}: FilterInputProps) : JSX.Element => {
   return (
     <Wrapper>
       <Instructions>Use this input to filter data...</Instructions>
-      <input type='text' className={css.filterInput} />
+      <input type='text' className={css.filterInput}  onChange={ e =>{ changeHandler(e.target.value)} }/>
     </Wrapper>
   )
 }

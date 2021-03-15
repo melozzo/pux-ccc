@@ -5,7 +5,7 @@
  */
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
-import Axios from 'axios';
+import Axios from 'axios'
 import IAlbum from './../__data__/iAlbum'
 
 import { AlbumTable, FilterInput, PageTitle } from 'components/'
@@ -14,22 +14,25 @@ import css from 'styles/Home.module.css'
 import axios from 'axios'
 
 const Home = (): JSX.Element => {
-      const [albumData, setAlbumData] = useState<IAlbum[]>([]);
-      useEffect(() => {
-           loadAlbums();
-            
-      }, [])
+  const [albumData, setAlbumData] = useState<IAlbum[]>([])
+  const [filter, setFilter] = useState("")
 
-async function loadAlbums(){
-      let result;
-        try{
-                  const result =  await axios.get<IAlbum[]>("http://localhost:3000/api/albums");
-               
-                  setAlbumData(result.data)
-        }catch(error){
-              console.log("unable to fetch records")
-        }
-        
+  useEffect(() => {
+    loadAlbums()
+  }, []);
+
+  function handleFilterChange( nextChar:string){
+      setFilter(nextChar);
+  }
+
+  async function loadAlbums() {
+    try {
+      const result = await axios.get<IAlbum[]>('http://localhost:3000/api/albums')
+
+      setAlbumData(result.data)
+    } catch (error) {
+      console.log('unable to fetch records')
+    }
   }
 
   return (
@@ -46,8 +49,9 @@ async function loadAlbums(){
       </div>
       <div className={css.container}>
         <PageTitle />
-        <FilterInput />
-        <AlbumTable data={albumData} />
+       <div>{filter}</div>
+        <FilterInput changeHandler={handleFilterChange} />
+        <AlbumTable data={albumData} filterTerm={filter} />
       </div>
     </React.Fragment>
   )

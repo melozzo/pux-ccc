@@ -16,17 +16,28 @@ const Wrapper = styled.div`
 `
 
 type AlbumTableProps = {
-  data: any[]
+  data: IAlbum[],
+  filterTerm:string
 }
 
 
 
-const AlbumTable: React.FC<AlbumTableProps> = ({ data }: AlbumTableProps): JSX.Element => {
+const AlbumTable: React.FC<AlbumTableProps> = ({ data, filterTerm }: AlbumTableProps): JSX.Element => {
 
     useEffect( ()=>{
           if(data.length > 0)
-      processData();
+      processData(data);
     },[data])
+
+    useEffect(()=>{
+          if(filterTerm == "")
+          return;
+          const found = data.filter( d => d.artist.toLowerCase().includes(filterTerm.toLowerCase()) || d.album.toLowerCase().includes(filterTerm.toLowerCase()));
+            if(found !== undefined)
+          processData(found)
+
+
+    },[filterTerm])
 
     const [dataRows, setDataRows] = useState<GridRowData[]>([])
 
@@ -39,11 +50,12 @@ const AlbumTable: React.FC<AlbumTableProps> = ({ data }: AlbumTableProps): JSX.E
             {field: 'col5', headerName:"Sold", width:150}
       ];
 
-      function processData(){
+      function processData(records:IAlbum[] ){
            
             let rows:GridRowData[]  = [];
             let  counter = 1;
-            data.forEach( (val, index)=>{
+            if(records !== null)
+            records.forEach( (val:IAlbum)=>{
               
                   const row = {
                         id: counter,
@@ -58,6 +70,10 @@ const AlbumTable: React.FC<AlbumTableProps> = ({ data }: AlbumTableProps): JSX.E
                   counter++;
             })
             setDataRows(rows);
+      }
+
+      function filterData(){
+
       }
 
 
