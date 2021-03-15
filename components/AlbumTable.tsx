@@ -47,7 +47,8 @@ const AlbumTable: React.FC<AlbumTableProps> = ({ data, filterTerm }: AlbumTableP
             {field: 'col3', headerName:"Artist", width:150},
             {field: 'col4', headerName: "Album", width: 150},
             {field: 'col5', headerName: "Year", width:150},
-            {field: 'col5', headerName:"Sold", width:150}
+            {field: 'col6', headerName:"Sold", width:150, type:'number'}
+                  
       ];
 
       function processData(records:IAlbum[] ){
