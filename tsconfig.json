@@ -15,7 +15,10 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es5"
+    "target": "es5",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks":true,
   },
   "include": ["react-app-env.d.ts", "src/typings/**/*.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "src/typings/__generated__/**/*.ts"]
