@@ -6,5 +6,6 @@
 import AlbumTable from './AlbumTable'
 import FilterInput from './FilterInput'
 import PageTitle from './PageTitle'
+import CountrySelect from './CountrySelect'
 
-export { AlbumTable, FilterInput, PageTitle }
+export { AlbumTable, FilterInput, PageTitle, CountrySelect }
